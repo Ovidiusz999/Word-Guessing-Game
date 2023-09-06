@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Word Guessing Game</title>
+</head>
+<body>
+  <h1>Word Guessing Game</h1>
+  <p>Guess the word by entering a letter:</p>
+  <input type="text" id="guessInput" placeholder="Enter a letter">
+  <button onclick="guessLetter()">Guess</button>
+  <p id="displayWord"></p>
+
+  <script>
+    const word = ["alma", "fa"];
+    let display = "_".repeat(word[0].length);
+
+    function RN() {
+      const x = word[Math.floor(Math.random() * word.length)];
+      return x;
+    }
+
+    let randomWord = RN();
+
+    function game(guess, word, display) {
+      let displayArray = display.split('');
+      for (let i = 0; i < word.length; i++) {
+        if (guess === word[i]) {
+          displayArray[i] = guess;
+        }
+      }
+      display = displayArray.join('');
+      return display;
+    }
+
+    display = "_".repeat(randomWord.length);
+    document.getElementById("displayWord").textContent = display;
+
+    function guessLetter() {
+      const inputElement = document.getElementById("guessInput");
+      const guess = inputElement.value.toLowerCase();
+      inputElement.value = "";
+
+      display = game(guess, randomWord, display);
+      document.getElementById("displayWord").textContent = display;
+
+      if (display === randomWord) {
+        document.getElementById("displayWord").textContent = "Congratulations! You guessed the word!";
+      }
+    }
+  </script>
+</body>
+</html>
